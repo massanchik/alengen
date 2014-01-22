@@ -439,14 +439,10 @@ class CodeGenerator(object):
     header = '# coding: utf-8'
     footer = ''
 
-    def __init__(self, metadata, noindexes=False, noconstraints=False, nojoined=False, noinflect=True):
+    def __init__(self, metadata, noindexes=False, noconstraints=False, nojoined=False):
         super(CodeGenerator, self).__init__()
 
-        if noinflect:
-            inflect_engine = _DummyInflectEngine()
-        else:
-            import inflect
-            inflect_engine = inflect.engine()
+        inflect_engine = _DummyInflectEngine()
 
         # Pick association tables from the metadata into their own set, don't process them normally
         links = defaultdict(lambda: [])
