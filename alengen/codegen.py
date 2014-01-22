@@ -18,7 +18,6 @@ except ImportError:
     # SQLAlchemy < 0.8
     from sqlalchemy.sql.expression import _TextClause as TextClause
 
-
 _re_boolean_check_constraint = re.compile(r"(?:(?:.*?)\.)?(.*?) IN \(0, 1\)")
 _re_column_name = re.compile(r'(?:(["`])(?:.*)\1\.)?(["`]?)(.*)\2')
 _re_enum_check_constraint = re.compile(r"(?:(?:.*?)\.)?(.*?) IN \((.+)\)")
@@ -59,9 +58,9 @@ def _get_constraint_sort_key(constraint):
 def _get_common_fk_constraints(table1, table2):
     """Returns a set of foreign key constraints the two tables have against each other."""
     c1 = set(c for c in table1.constraints if isinstance(c, ForeignKeyConstraint) and
-             c.elements[0].column.table == table2)
+                                              c.elements[0].column.table == table2)
     c2 = set(c for c in table2.constraints if isinstance(c, ForeignKeyConstraint) and
-             c.elements[0].column.table == table1)
+                                              c.elements[0].column.table == table1)
     return c1.union(c2)
 
 
@@ -73,7 +72,11 @@ def _render_column_type(coltype):
             args.append('name={0!r}'.format(coltype.name))
     else:
         # All other types
-        argspec = inspect.getargspec(coltype.__class__.__init__)
+        try:
+            argspec = inspect.getargspec(coltype.__class__.__init__)
+        except:
+            argspec = ()
+            pass
         defaults = dict(list(zip(argspec.args[-len(argspec.defaults or ()):], argspec.defaults or ())))
         missing = object()
         use_kwargs = False
@@ -391,7 +394,7 @@ class ManyToOneRelationship(Relationship):
 
         # Add uselist=False to One-to-One relationships
         if any(isinstance(c, (PrimaryKeyConstraint, UniqueConstraint)) and
-               set(col.name for col in c.columns) == set(constraint.columns)
+                               set(col.name for col in c.columns) == set(constraint.columns)
                for c in constraint.table.constraints):
             self.kwargs['uselist'] = 'False'
 
