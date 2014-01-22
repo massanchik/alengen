@@ -6,8 +6,8 @@ import sys
 from sqlalchemy.engine import create_engine
 from sqlalchemy.schema import MetaData
 
-from sqlacodegen.codegen import CodeGenerator
-import sqlacodegen
+from alengen.codegen import CodeGenerator
+import alengen
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
     args = parser.parse_args()
 
     if args.version:
-        print(sqlacodegen.version)
+        print(alengen.version)
         return
     if not args.url:
         print('You must supply a url\n', file=sys.stderr)
