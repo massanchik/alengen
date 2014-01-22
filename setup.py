@@ -33,8 +33,7 @@ setup(
     license='MIT',
     packages=find_packages(exclude=['tests']),
     install_requires=(
-        'SQLAlchemy >= 0.6.0',
-        'inflect >= 0.2.0'
+        'SQLAlchemy >= 0.6.0'
     ),
     test_suite='nose.collector',
     tests_require=['nose'],
