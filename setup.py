@@ -6,18 +6,12 @@ from setuptools import setup, find_packages
 import alengen
 
 
-extra_requirements = ()
-if sys.version_info < (2, 7):
-    extra_requirements = ('argparse',)
 
 here = os.path.dirname(__file__)
-readme_path = os.path.join(here, 'README.rst')
-readme = open(readme_path).read()
 
 setup(
     name='alengen',
     description='Automatic model code generator for SQLAlchemy',
-    long_description=readme,
     version=alengen.version,
     author='Ashot Seropian',
     author_email='ashot.seropyan@gmail.com',
@@ -41,13 +35,13 @@ setup(
     packages=find_packages(exclude=['tests']),
     install_requires=(
         'SQLAlchemy >= 0.6.0'
-    ) + extra_requirements,
+    ),
     test_suite='nose.collector',
     tests_require=['nose'],
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'sqlacodegen=sqlacodegen.main:main'
+            'alengen=alengen.main:main'
         ]
     }
 )
