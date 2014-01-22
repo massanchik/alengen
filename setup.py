@@ -29,7 +29,7 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3'
     ],
-    keywords='sqlalchemy',
+    keywords='sqlalchemy, alengen, generator, generate, autocode, entity, model',
     license='MIT',
     packages=find_packages(exclude=['tests']),
     install_requires=(
