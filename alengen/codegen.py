@@ -439,7 +439,7 @@ class CodeGenerator(object):
     header = '# coding: utf-8'
     footer = ''
 
-    def __init__(self, metadata, noindexes=False, noconstraints=False, nojoined=False, noinflect=False):
+    def __init__(self, metadata, noindexes=False, noconstraints=False, nojoined=False, noinflect=True):
         super(CodeGenerator, self).__init__()
 
         if noinflect:
