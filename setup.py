@@ -3,7 +3,7 @@ import os.path
 
 from setuptools import setup, find_packages
 
-import sqlacodegen
+import alengen
 
 
 extra_requirements = ()
@@ -18,7 +18,7 @@ setup(
     name='alengen',
     description='Automatic model code generator for SQLAlchemy',
     long_description=readme,
-    version=sqlacodegen.version,
+    version=alengen.version,
     author='Ashot Seropian',
     author_email='ashot.seropyan@gmail.com',
     url='https://github.com/massanchik/alengen',
