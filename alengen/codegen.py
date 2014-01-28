@@ -2,7 +2,6 @@
 
 from collections import defaultdict
 from keyword import iskeyword
-import inspect
 import sys
 import re
 
@@ -70,29 +69,6 @@ def _render_column_type(coltype):
         args.extend(repr(arg) for arg in coltype.enums)
         if coltype.name is not None:
             args.append('name={0!r}'.format(coltype.name))
-    # else:
-    #     # All other types
-    #     try:
-    #         argspec = inspect.getargspec(coltype.__class__.__init__)
-    #     except:
-    #         argspec = ()
-    #         pass
-    #     defaults = dict(list(zip(argspec.args[-len(argspec.defaults or ()):], argspec.defaults or ())))
-    #     missing = object()
-    #     use_kwargs = False
-    #     for attr in argspec.args[1:]:
-    #         # Remove annoyances like _warn_on_bytestring
-    #         if attr.startswith('_'):
-    #             continue
-    #
-    #         value = getattr(coltype, attr, missing)
-    #         default = defaults.get(attr, missing)
-    #         if value is missing or value == default:
-    #             use_kwargs = True
-    #         elif use_kwargs:
-    #             args.append('{0}={1}'.format(attr, repr(value)))
-    #         else:
-    #             args.append(repr(value))
 
     text = coltype.__class__.__name__
     if args:
@@ -114,9 +90,9 @@ def _render_column(column, show_name):
     kwarg = []
     is_sole_pk = column.primary_key and len(column.table.primary_key) == 1
     dedicated_fks = [c for c in column.foreign_keys if len(c.constraint.columns) == 1]
-    is_unique = any(isinstance(c, UniqueConstraint) and set(c.columns) == set([column])
+    is_unique = any(isinstance(c, UniqueConstraint) and set(c.columns) == {column}
                     for c in column.table.constraints)
-    has_index = any(set(i.columns) == set([column]) for i in column.table.indexes)
+    has_index = any(set(i.columns) == {column} for i in column.table.indexes)
 
     # Render the column type if there are no foreign keys on it or any of them points back to itself
     render_coltype = not dedicated_fks or any(fk.column is column for fk in dedicated_fks)

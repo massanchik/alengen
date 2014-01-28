@@ -36,7 +36,7 @@ setup(
         'SQLAlchemy >= 0.6.0'
     ),
     test_suite='nose.collector',
-    tests_require=['nose'],
+    tests_require=['nose', 'sqlalchemy'],
     zip_safe=False,
     entry_points={
         'console_scripts': [
