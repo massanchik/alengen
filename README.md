@@ -1,4 +1,4 @@
 alengen
 =======
 
-Generate entities from db tables
+Generate models from db tables for SQLAlchemy
